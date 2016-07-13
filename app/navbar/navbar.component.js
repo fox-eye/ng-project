@@ -22,15 +22,22 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             }],
         execute: function() {
             NavbarComponent = (function () {
-                function NavbarComponent() {
+                function NavbarComponent(_router) {
+                    this._router = _router;
                 }
+                NavbarComponent.prototype.isCurrentRoute = function (route) {
+                    // obsolete in current version, use RouterLinkActive directive!
+                    // https://angular.io/docs/ts/latest/api/router/index/RouterLinkActive-directive.html
+                    var instruction = this._router.generate(route);
+                    return this._router.isRouteActive(instruction);
+                };
                 NavbarComponent = __decorate([
                     core_1.Component({
                         selector: 'navigation-bar',
                         templateUrl: 'app/navbar/navbar.template.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router])
                 ], NavbarComponent);
                 return NavbarComponent;
             }());
