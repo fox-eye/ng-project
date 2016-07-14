@@ -5,10 +5,12 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {HomeComponent} from './home.component';
 import {UsersComponent} from './users/users.component';
 import {PostsComponent} from './posts/posts.component';
+import {AddUserFormComponent} from './users/add-user-form.component';
 
 @RouteConfig([
   { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },
   { path: '/users', name: 'Users', component: UsersComponent },
+  { path: '/users/new', name: 'NewUser', component: AddUserFormComponent },
   { path: '/posts', name: 'Posts', component: PostsComponent },
   { path: '/*other', name: 'Other', redirectTo: ['Home'] }
 ])
