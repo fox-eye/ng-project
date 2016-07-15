@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', '../shared/basic-validators', './user.service', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', '../shared/basic-validators', 'angular2/router', './user.service', './user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', 'angular2/common', '../shared/basic-validators
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, basic_validators_1, user_service_1, router_1;
-    var AddUserFormComponent;
+    var core_1, common_1, basic_validators_1, router_1, user_service_1, router_2, user_1;
+    var UserFormComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -23,17 +23,23 @@ System.register(['angular2/core', 'angular2/common', '../shared/basic-validators
             function (basic_validators_1_1) {
                 basic_validators_1 = basic_validators_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+                router_2 = router_1_1;
+            },
             function (user_service_1_1) {
                 user_service_1 = user_service_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (user_1_1) {
+                user_1 = user_1_1;
             }],
         execute: function() {
-            AddUserFormComponent = (function () {
-                function AddUserFormComponent(fb, _userService, _router) {
+            UserFormComponent = (function () {
+                function UserFormComponent(fb, _userService, _router, _routeParams) {
                     this._userService = _userService;
                     this._router = _router;
+                    this._routeParams = _routeParams;
+                    this.user = new user_1.User();
                     this.userForm = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', basic_validators_1.BasicValidators.invalidEmail],
@@ -46,27 +52,42 @@ System.register(['angular2/core', 'angular2/common', '../shared/basic-validators
                         })
                     });
                 }
-                AddUserFormComponent.prototype.routerCanDeactivate = function () {
+                UserFormComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    var id = this._routeParams.get('id');
+                    this.title = (id) ? 'Edit user' : 'New user';
+                    if (!id) {
+                        return;
+                    }
+                    this._userService
+                        .getUser(id)
+                        .subscribe(function (user) { _this.user = user; }, function (response) {
+                        if (response.status === '404') {
+                            _this._router.navigate(['NotFound']);
+                        }
+                    });
+                };
+                UserFormComponent.prototype.routerCanDeactivate = function () {
                     if (this.userForm.dirty) {
                         return window.confirm('Are you sure to want to stop editing this form ?');
                     }
                 };
-                AddUserFormComponent.prototype.saveUser = function () {
+                UserFormComponent.prototype.saveUser = function () {
                     var _this = this;
                     this._userService.addUser(this.userForm.value).
                         subscribe(function () { return _this._router.navigate(['Users']); });
                 };
-                AddUserFormComponent = __decorate([
+                UserFormComponent = __decorate([
                     core_1.Component({
-                        templateUrl: 'app/users/add-user-form.template.html',
+                        templateUrl: 'app/users/user-form.template.html',
                         providers: [user_service_1.UserService]
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder, user_service_1.UserService, router_1.Router])
-                ], AddUserFormComponent);
-                return AddUserFormComponent;
+                    __metadata('design:paramtypes', [common_1.FormBuilder, user_service_1.UserService, router_2.Router, router_1.RouteParams])
+                ], UserFormComponent);
+                return UserFormComponent;
             }());
-            exports_1("AddUserFormComponent", AddUserFormComponent);
+            exports_1("UserFormComponent", UserFormComponent);
         }
     }
 });
-//# sourceMappingURL=add-user-form.component.js.map
+//# sourceMappingURL=user-form.component.js.map

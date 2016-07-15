@@ -12,6 +12,12 @@ export class UserService {
       .map(data => data.json());
   }
   
+  getUser(userId) {
+    return this._http
+      .get(this._url +'/' + userId)
+      .map(data => data.json());
+  }
+
   getUsers() { 
     return this._http.get(this._url)
       .map(data => data.json());

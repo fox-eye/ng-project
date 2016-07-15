@@ -31,6 +31,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                     return this._http.post(this._url, JSON.stringify(newUser))
                         .map(function (data) { return data.json(); });
                 };
+                UserService.prototype.getUser = function (userId) {
+                    return this._http
+                        .get(this._url + '/' + userId)
+                        .map(function (data) { return data.json(); });
+                };
                 UserService.prototype.getUsers = function () {
                     return this._http.get(this._url)
                         .map(function (data) { return data.json(); });
