@@ -38,6 +38,11 @@ System.register(['angular2/core', 'angular2/common', '../shared/basic-validators
                         })
                     });
                 }
+                AddUserFormComponent.prototype.routerCanDeactivate = function () {
+                    if (this.userForm.dirty) {
+                        return window.confirm('Are you sure to want to stop editing this form ?');
+                    }
+                };
                 AddUserFormComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/users/add-user-form.template.html'
