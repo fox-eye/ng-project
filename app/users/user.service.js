@@ -27,6 +27,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                     this._http = _http;
                     this._url = 'http://jsonplaceholder.typicode.com/users';
                 }
+                UserService.prototype.addUser = function (newUser) {
+                    return this._http.post(this._url, JSON.stringify(newUser))
+                        .map(function (data) { return data.json(); });
+                };
                 UserService.prototype.getUsers = function () {
                     return this._http.get(this._url)
                         .map(function (data) { return data.json(); });
