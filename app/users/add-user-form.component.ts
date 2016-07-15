@@ -1,5 +1,6 @@
 import { Component } from 'angular2/core';
 import { FormBuilder, Validators, ControlGroup } from 'angular2/common';
+import {BasicValidators} from '../shared/basic-validators';
 @Component({
   templateUrl: 'app/users/add-user-form.template.html'
 })
@@ -8,8 +9,8 @@ export class AddUserFormComponent {
 
   constructor(fb: FormBuilder) {
     this.userForm = fb.group({
-      name: [],
-      email: [],
+      name: ['', Validators.required],
+      email: ['', BasicValidators.invalidEmail],
       phone: [],
       address: fb.group({
         street: [],
