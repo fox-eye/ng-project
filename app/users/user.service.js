@@ -31,14 +31,21 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                     return this._http.post(this._url, JSON.stringify(newUser))
                         .map(function (data) { return data.json(); });
                 };
+                UserService.prototype.updateUser = function (user) {
+                    return this._http.put(this.getUserUrl(user.id), JSON.stringify(user))
+                        .map(function (data) { return data.json(); });
+                };
                 UserService.prototype.getUser = function (userId) {
                     return this._http
-                        .get(this._url + '/' + userId)
+                        .get(this.getUserUrl(userId))
                         .map(function (data) { return data.json(); });
                 };
                 UserService.prototype.getUsers = function () {
                     return this._http.get(this._url)
                         .map(function (data) { return data.json(); });
+                };
+                UserService.prototype.getUserUrl = function (userId) {
+                    return this._url + '/' + userId;
                 };
                 UserService = __decorate([
                     core_1.Injectable(), 

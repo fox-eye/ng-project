@@ -11,16 +11,25 @@ export class UserService {
     return this._http.post(this._url, JSON.stringify(newUser))
       .map(data => data.json());
   }
+
+  updateUser(user) {
+    return this._http.put(this.getUserUrl(user.id), JSON.stringify(user))
+      .map(data => data.json());
+  }
   
   getUser(userId) {
     return this._http
-      .get(this._url +'/' + userId)
+      .get(this.getUserUrl(userId))
       .map(data => data.json());
   }
 
   getUsers() { 
     return this._http.get(this._url)
       .map(data => data.json());
+  }
+
+  private getUserUrl(userId) {
+   return this._url +'/' + userId; 
   }
 
 }
