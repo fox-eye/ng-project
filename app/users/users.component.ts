@@ -19,5 +19,14 @@ export class UsersComponent implements OnInit {
       this.users = users;
     });
   }
+
+  deleteUser(user) {
+    var deleteConfirmation = window.confirm('Are you sure to want to delete this user ?');
+    if(deleteConfirmation) {
+      this._userService.deleteUser(user.id).subscribe(() => {
+       this.users.splice(this.users.indexOf(user), 1); 
+      });
+    }
+  }
 }
 
