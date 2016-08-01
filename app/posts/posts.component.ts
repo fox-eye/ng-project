@@ -10,11 +10,12 @@ export class PostsComponent implements OnInit {
   constructor(private _postService:PostService) {}
 
   posts:any[];
-
+  isLoading: true;
+  
   ngOnInit() {
     this._postService.getPosts().subscribe(posts => {
       this.posts = posts;
-    });
+    }, null, () => this.isLoading = false);
   }
 }
 

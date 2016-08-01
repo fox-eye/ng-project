@@ -24,12 +24,13 @@ System.register(['angular2/core', './post.service'], function(exports_1, context
             PostsComponent = (function () {
                 function PostsComponent(_postService) {
                     this._postService = _postService;
+                    this.isLoading = true;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._postService.getPosts().subscribe(function (posts) {
                         _this.posts = posts;
-                    });
+                    }, null, function () { return _this.isLoading = false; });
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
