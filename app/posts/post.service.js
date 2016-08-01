@@ -25,9 +25,14 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
             PostService = (function () {
                 function PostService(_http) {
                     this._http = _http;
+                    this._postUrl = 'http://jsonplaceholder.typicode.com/posts';
                 }
                 PostService.prototype.getPosts = function () {
-                    return this._http.get('http://jsonplaceholder.typicode.com/posts')
+                    return this._http.get(this._postUrl)
+                        .map(function (data) { return data.json(); });
+                };
+                PostService.prototype.getComments = function (postId) {
+                    return this._http.get(this._postUrl + '/' + postId + '/comments')
                         .map(function (data) { return data.json(); });
                 };
                 PostService = __decorate([

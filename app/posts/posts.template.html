@@ -18,6 +18,17 @@
         <h3 class="panel-title"> {{ currentPost.title }}</h3>
       </div>
       <div class="panel-body">{{ currentPost.body }}</div>
+      <div class="media" *ngFor="#comment of currentPost.comments">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src="http://dummyimage.com/80x80/802880/fff.jpg&text={{comment.name}}">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{ comment.name }}</h4>
+          {{ comment.body }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

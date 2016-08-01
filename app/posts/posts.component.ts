@@ -29,6 +29,9 @@ export class PostsComponent implements OnInit {
   
   setCurrentlySelected(selectedPost) {
     this.currentPost = selectedPost;
+    this._postService.getComments(selectedPost.id).subscribe(comments => {
+      this.currentPost.comments = comments; 
+    });
   }
 
   ngOnInit() {
