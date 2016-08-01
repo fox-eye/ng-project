@@ -29,6 +29,9 @@ System.register(['angular2/core', './post.service', '../shared/spinner.component
                     this._postService = _postService;
                     this.isLoading = true;
                 }
+                PostsComponent.prototype.setCurrentlySelected = function (selectedPost) {
+                    this.currentPost = selectedPost;
+                };
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._postService.getPosts().subscribe(function (posts) {
@@ -38,6 +41,7 @@ System.register(['angular2/core', './post.service', '../shared/spinner.component
                 PostsComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/posts/posts.template.html',
+                        styles: ["\n   .posts li  { cursor: default; } \n   .posts li:hover { background:  #ecf0f1; }\n\n   .list-\u00AD\u2010group-\u00AD\u2010item.active, \n    .list-\u00AD\u2010group-\u00AD\u2010item.active:hover,  \n    .list-\u00AD\u2010group-\u00AD\u2010item.active:focus { \n      background-color: #ecf0f1;\n      border-color: #ecf0f1;  \n      color: #2c3e50;\n    }\n  "],
                         directives: [spinner_component_1.SpinnerComponent],
                         providers: [post_service_1.PostService]
                     }), 
