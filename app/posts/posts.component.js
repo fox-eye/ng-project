@@ -28,13 +28,14 @@ System.register(['angular2/core', './post.service', '../shared/spinner.component
                 function PostsComponent(_postService) {
                     this._postService = _postService;
                     this.isLoading = true;
+                    this.commentsLoading = true;
                 }
                 PostsComponent.prototype.setCurrentlySelected = function (selectedPost) {
                     var _this = this;
                     this.currentPost = selectedPost;
                     this._postService.getComments(selectedPost.id).subscribe(function (comments) {
                         _this.currentPost.comments = comments;
-                    });
+                    }, null, function () { return _this.commentsLoading = false; });
                 };
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;

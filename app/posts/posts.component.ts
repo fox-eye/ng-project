@@ -25,13 +25,17 @@ export class PostsComponent implements OnInit {
 
   posts:any[];
   isLoading = true;
+  commentsLoading = true;
   currentPost;  
   
   setCurrentlySelected(selectedPost) {
     this.currentPost = selectedPost;
     this._postService.getComments(selectedPost.id).subscribe(comments => {
       this.currentPost.comments = comments; 
-    });
+    },
+    null, 
+    () => this.commentsLoading = false
+    );
   }
 
   ngOnInit() {
